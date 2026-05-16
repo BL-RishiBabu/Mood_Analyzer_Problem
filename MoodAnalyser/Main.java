@@ -1,23 +1,20 @@
 public class Main {
     public static void main(String[] args) {
-        MoodAnalyser moodAnalyser = new MoodAnalyser();
-
         System.out.println("--- Running Mood Analyzer ---");
+        
+        MoodAnalyser sadAnalyser = new MoodAnalyser("I am in Sad Mood");
+        String result1 = sadAnalyser.analyseMood();
+        System.out.print("Repeat TC 1.1 (Expected: SAD) -> Result: " + result1);
+        System.out.println(result1.equals("SAD") ? " [PASS]" : " [FAIL]");
 
-        String testCase1 = moodAnalyser.analyseMood("I am in Sad Mood");
-        System.out.print("TC 1.1 (Expected: SAD) -> Result: " + testCase1);
-        if (testCase1.equals("SAD")) {
-            System.out.println(" [PASS]");
-        } else {
-            System.out.println(" [FAIL]");
-        }
+        MoodAnalyser happyAnalyser = new MoodAnalyser("I am in Happy Mood");
+        String result2 = happyAnalyser.analyseMood();
+        System.out.print("Repeat TC 1.2 (Expected: HAPPY) -> Result: " + result2);
+        System.out.println(result2.equals("HAPPY") ? " [PASS]" : " [FAIL]");
 
-        String testCase2 = moodAnalyser.analyseMood("I am in Any Mood");
-        System.out.print("TC 1.2 (Expected: HAPPY) -> Result: " + testCase2);
-        if (testCase2.equals("HAPPY")) {
-            System.out.println(" [PASS]");
-        } else {
-            System.out.println(" [FAIL]");
-        }
+        MoodAnalyser nullAnalyser = new MoodAnalyser(null);
+        String result3 = nullAnalyser.analyseMood();
+        System.out.print("TC 2.1 (Expected: HAPPY) -> Result: " + result3);
+        System.out.println(result3.equals("HAPPY") ? " [PASS]" : " [FAIL]");
     }
 }
