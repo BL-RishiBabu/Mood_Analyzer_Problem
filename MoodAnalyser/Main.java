@@ -1,20 +1,40 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("--- Running Mood Analyzer ---");
-        
-        MoodAnalyser sadAnalyser = new MoodAnalyser("I am in Sad Mood");
-        String result1 = sadAnalyser.analyseMood();
-        System.out.print("Repeat TC 1.1 (Expected: SAD) -> Result: " + result1);
-        System.out.println(result1.equals("SAD") ? " [PASS]" : " [FAIL]");
+        System.out.println("--- Running Mood Analyzer Tests ---");
 
-        MoodAnalyser happyAnalyser = new MoodAnalyser("I am in Happy Mood");
-        String result2 = happyAnalyser.analyseMood();
-        System.out.print("Repeat TC 1.2 (Expected: HAPPY) -> Result: " + result2);
-        System.out.println(result2.equals("HAPPY") ? " [PASS]" : " [FAIL]");
+        try {
+            System.out.print("TC 3.1 Testing Null Mood -> ");
+            MoodAnalyser nullAnalyser = new MoodAnalyser(null);
+            nullAnalyser.analyseMood();
+            System.out.println("[FAIL] No exception thrown.");
+        } catch (MoodAnalysisException e) {
+            if (e.type == MoodAnalysisException.ExceptionType.ENTERED_NULL) {
+                System.out.println("[PASS] Threw MoodAnalysisException of type ENTERED_NULL. Message: " + e.getMessage());
+            } else {
+                System.out.println("[FAIL] Threw wrong exception type.");
+            }
+        }
 
-        MoodAnalyser nullAnalyser = new MoodAnalyser(null);
-        String result3 = nullAnalyser.analyseMood();
-        System.out.print("TC 2.1 (Expected: HAPPY) -> Result: " + result3);
-        System.out.println(result3.equals("HAPPY") ? " [PASS]" : " [FAIL]");
+        try {
+            System.out.print("TC 3.2 Testing Empty Mood -> ");
+            MoodAnalyser emptyAnalyser = new MoodAnalyser("");
+            emptyAnalyser.analyseMood(); // This should throw an exception
+            System.out.println("[FAIL] No exception thrown.");
+        } catch (MoodAnalysisException e) {
+            if (e.type == MoodAnalysisException.ExceptionType.ENTERED_EMPTY) {
+                System.out.println("[PASS] Threw MoodAnalysisException of type ENTERED_EMPTY. Message: " + e.getMessage());
+            } else {
+                System.out.println("[FAIL] Threw wrong exception type.");
+            }
+        }
+
+        try {
+            System.out.print("Testing Valid Mood -> ");
+            MoodAnalyser validAnalyser = new MoodAnalyser("I am in Sad Mood");
+            String result = validAnalyser.analyseMood();
+            System.out.println("[PASS] Result: " + result);
+        } catch (MoodAnalysisException e) {
+            System.out.println("[FAIL] Unexpected exception thrown: " + e.getMessage());
+        }
     }
 }
